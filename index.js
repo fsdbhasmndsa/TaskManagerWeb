@@ -1,18 +1,21 @@
 const express = require('express')
 const database = require("./config/Database")
-const Task = require("./config/task.model")
+const bodyParser = require('body-parser')
+
 const app = express()
-const port = 3000
+const Router = require("./router/indexRouter")
+const port = 8080
 database.connect();
 
 
 
-app.get('/', async(req, res) => {
 
-    const ListTask = await Task.find({Deleted:false});
-   
-     res.json(ListTask);
-})
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded())
+
+Router(app);
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
