@@ -20,4 +20,7 @@ router.post("/Create",ControllerTask.CreateTask)
 // Update task
 router.put("/Update/:id",ControllerTask.UpdateTask)
 
+// findbyIDuser
+router.get("/GETtaskByID",ControllerTask.FindTaskByUser)
+
 module.exports = router;

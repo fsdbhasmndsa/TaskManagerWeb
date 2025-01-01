@@ -1,6 +1,9 @@
 const { model } = require("mongoose");
 const Tasks = require("../models/task.model")
+const User = require("../models/user.model")
 const regex = require("../helper/SearchHelper")
+
+
 module.exports.GetALLTask = async (req, res) => {
     try {
         const find = { Deleted: false };
@@ -42,7 +45,7 @@ module.exports.DeleteTask = async (req, res)=>{
 }
 
 module.exports.CreateTask = async (req, res)=>{
-
+    req.body.CreateBy= req.user._id
     const task = new Tasks(req.body)
 
     await task.save();
@@ -60,3 +63,17 @@ module.exports.UpdateTask = async (req, res)=>{
 
 }
 
+module.exports.FindTaskByUser =  async (req, res)=>{
+    const Token = req.user.Token;
+
+    const id = await User.findOne({Token:Token}).select("_id")
+    const stringId = id._id.toString(); 
+    const find = {
+        Deleted:false,
+        ListUser:{ $in : [stringId]}
+    }
+
+     const ListTaskByUser = await Tasks.find(find)
+
+    res.json({code:200,ListTask:ListTaskByUser})
+}

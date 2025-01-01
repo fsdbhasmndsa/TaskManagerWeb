@@ -1,7 +1,9 @@
 const User = require("../models/user.model")
+
 const GenerateToken = require("../helper/GenerateToken")
 const GenerateOTP = require("../helper/GenerateOTP")
-const nodemailer = require('nodemailer');
+const SendMail= require("../helper/MailHelper")
+const Otp = require("../models/otp.model")
 
 module.exports.Register = async (req, res) => {
 
@@ -24,19 +26,20 @@ module.exports.Register = async (req, res) => {
     })
 
     await user.save();
+    SendMail(email,email,`<h1  >You have just registered This account</h1><p style="color:blue;"> ${email} </p>`)
 
     res.json({ code: 200, token: Token })
 }
 
 module.exports.FindAll = async (req, res) => {
-    const ListUser = await User.find({ Deleted: false })
+    const ListUser = await User.find({ Deleted: false }).select("Fullname Email")
 
     res.json({ code: 200, ListUser: ListUser, message: "Get User Successfull" })
 
 }
 
 module.exports.GetDetailUser = async (req, res) => {
-    const id = req.params.id;
+    const id = req.user.id;
 
     const userDetail = await User.findOne({ _id: id }).select("-Password");
 
@@ -96,10 +99,21 @@ module.exports.ForgotPassword = async (req, res) =>
             res.json({code:400,message:"Email does not exist"})
             return;
         }
-
         const OTP =GenerateOTP(6);
-
+        const otpSave = new Otp({
+            UserID:userNeedtoGet._id.toString(),
+            OTP:OTP
+        })
+      await  otpSave.save()
+      SendMail(Email,OTP,`<h1  >Welcome Your OTP is </h1><p style="color:blue;"> ${OTP} </p>`)
+        
         res.json({code:200,message:"Send OTP Successful",OTP:OTP})
+}
+
+module.exports.CheckOTP = async (req, res) =>{
+
+
+
 }
 
 module.exports.ResetPassword = async (req, res) =>{
