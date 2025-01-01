@@ -1,5 +1,6 @@
 const User = require("../models/user.model")
 const GenerateToken = require("../helper/GenerateToken")
+const GenerateOTP = require("../helper/GenerateOTP")
 const nodemailer = require('nodemailer');
 
 module.exports.Register = async (req, res) => {
@@ -96,7 +97,9 @@ module.exports.ForgotPassword = async (req, res) =>
             return;
         }
 
-        res.json({code:200,message:"Send OTP Successful"})
+        const OTP =GenerateOTP(6);
+
+        res.json({code:200,message:"Send OTP Successful",OTP:OTP})
 }
 
 module.exports.ResetPassword = async (req, res) =>{
