@@ -11,7 +11,7 @@ import RegisterNext from './User/views/RegisterNext';
 import Layout from './User/Layout/Layout';
 import TopStatistics from './User/views/TopStatistics';
 import TableTask from './User/views/TableTask'
-
+import Page404 from './User/views/Page404'
 function App() {
   return (
     <BrowserRouter>
@@ -39,6 +39,7 @@ function App() {
 
 
         </Route>
+        <Route path='*' element={<Page404></Page404>}> </Route>
 
       </Routes>
       <ToastContainer autoClose={2500} pauseOnHover={false} />
