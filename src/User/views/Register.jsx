@@ -1,9 +1,10 @@
 import { useFormik } from 'formik'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import * as Yup from "yup"
 const Register = () => {
 
+  const Navigate = useNavigate();
   const FormIk = useFormik({
     initialValues: {
       Email: ""
@@ -13,6 +14,7 @@ const Register = () => {
     }),
     onSubmit: (values) => {
       console.log("first", values)
+      Navigate("/registerNext",{state:{Email:values.Email}})
     }
   })
 
@@ -56,7 +58,7 @@ const Register = () => {
         {/* Liên kết đăng nhập */}
         <div className="text-center mb-3">
           Bạn đã có sẵn tài khoản?{" "}
-          <NavLink to={"/register"} style={{ textDecoration: "none" }} className="text-success">
+          <NavLink to={"/login"} style={{ textDecoration: "none" }} className="text-success">
             Đăng nhập
           </NavLink>
         </div>

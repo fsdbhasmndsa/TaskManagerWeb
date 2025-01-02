@@ -1,12 +1,54 @@
+import axios from 'axios';
+import { useFormik } from 'formik';
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { data, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import * as Yup from "yup"
 
 const RegisterNext = () => {
     const [showPassword, setShowPassword] = useState(false);
-
+    const location = useLocation();
+    const Navigation = useNavigate();
+    const { Email } = location.state || {};
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+    const FormIk = useFormik({
+        initialValues: {
+            Email: Email,
+            Password: "",
+            Fullname: ""
+        },
+        validationSchema: Yup.object({
+            Password: Yup.string().required("Hãy nhập Mật khẩu").max(10, "Mật khẩu <= 10").min(3, "Mật khẩu >= 3 "),
+            Fullname: Yup.string().required("Hãy nhập Họ và tên").max(30, "Họ và tên <= 30").min(3, "Họ và tên >= 10")
+        }),
+        onSubmit: async (values) => {
+            console.log("first", values)
+
+            const res = await axios({
+                url: "http://localhost:8080/user/register",
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                data: values,
+            })
+
+            if (res.data.code == 400) {
+                toast.error(res.data.message)
+            }
+            if (res.data.code == 200) {
+            
+                toast.success(res.data.message)
+                Navigation("/")
+            }
+
+        }
+
+
+    })
+
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center vh-100">
@@ -23,18 +65,19 @@ const RegisterNext = () => {
             <h2 className="fw-bold mb-4">Nhập mật khẩu của bạn</h2>
 
             {/* Form */}
-            <form className="w-100" style={{ maxWidth: "400px" }}>
+            <form className="w-100" style={{ maxWidth: "400px" }} onSubmit={FormIk.handleSubmit}>
                 {/* Email hiển thị */}
                 <div className="mb-3">
                     <label htmlFor="Email" className="form-label">
                         Địa chỉ Email*
                     </label>
                     <input
-
+                        value={FormIk.values.Email}
                         type="Email"
                         id="Email"
                         className="form-control"
                         placeholder="Nhập Email của bạn"
+                        disabled
                     />
 
                 </div>
@@ -49,6 +92,7 @@ const RegisterNext = () => {
                         id="Password"
                         className="form-control"
                         placeholder="Nhập mật khẩu"
+                        onChange={FormIk.handleChange}
                     />
                     <button
                         type="button"
@@ -57,6 +101,7 @@ const RegisterNext = () => {
                     >
                         <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
                     </button>
+                    {FormIk.errors.Password && <i className='text-danger my-2'>{FormIk.errors.Password}</i>}
                 </div>
 
                 <div className="mb-3">
@@ -69,26 +114,27 @@ const RegisterNext = () => {
                         id="Fullname"
                         className="form-control"
                         placeholder="Nhập Name của bạn"
+                        onChange={FormIk.handleChange}
                     />
-
+                    {FormIk.errors.Fullname && <i className='text-danger my-2'>{FormIk.errors.Fullname}</i>}
                 </div>
 
                 {/* Quên mật khẩu */}
                 <div className="mb-3 text-end">
-                    <a href="#" className="text-primary">
+                    <NavLink to={"/forgotpassword"} style={{ textDecoration: "none" }} className="text-success">
                         Quên mật khẩu?
-                    </a>
+                    </NavLink>
                 </div>
 
                 {/* Nút tiếp tục */}
                 <div className="mb-3">
-                    <button className="btn btn-success w-100 py-2">Tiếp tục</button>
+                    <button className="btn btn-success w-100 py-2">Đăng kí</button>
                 </div>
 
                 {/* Đăng ký */}
                 <div className="text-center mb-3">
                     Bạn đã có sẵn tài khoản?{" "}
-                    <NavLink to={"/register"} style={{textDecoration:"none"}} className="text-success">
+                    <NavLink to={"/login"} style={{ textDecoration: "none" }} className="text-success">
                         Đăng nhập
                     </NavLink>
                 </div>
