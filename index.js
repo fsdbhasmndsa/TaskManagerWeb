@@ -1,8 +1,11 @@
 const express = require('express')
 const database = require("./config/Database")
 const bodyParser = require('body-parser')
+const cors = require('cors')
+
 
 const app = express()
+app.use(cors())
 const Router = require("./router/indexRouter")
 const port = 8080
 database.connect();

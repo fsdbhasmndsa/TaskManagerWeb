@@ -28,52 +28,84 @@ module.exports.GetDetailTask = async (req, res) => {
 module.exports.ChangeStatus = async (req, res) => {
     const { id, status } = req.body
 
-    await Tasks.updateOne({_id:id},{Status:status})
+    await Tasks.updateOne({ _id: id }, { Status: status })
 
     res.json({
         code: 200,
-        message:"Change status Successful"
+        message: "Change status Successful"
     })
 }
 
-module.exports.DeleteTask = async (req, res)=>{
-    const id =  req.params.id;
+module.exports.DeleteTask = async (req, res) => {
+    const id = req.params.id;
 
-    await Tasks.updateOne({_id:id},{Deleted:true})
+    await Tasks.updateOne({ _id: id }, { Deleted: true })
 
-    res.json({code:200,message:"Delete Task SuccessFul"})
+    res.json({ code: 200, message: "Delete Task SuccessFul" })
 }
 
-module.exports.CreateTask = async (req, res)=>{
-    req.body.CreateBy= req.user._id
+module.exports.CreateTask = async (req, res) => {
+    req.body.CreateBy = req.user._id
     const task = new Tasks(req.body)
 
     await task.save();
 
-    res.json({code:200,task:task})
+    res.json({ code: 200, task: task })
 
 }
 
-module.exports.UpdateTask = async (req, res)=>{
-    const id= req.params.id;
+module.exports.UpdateTask = async (req, res) => {
+    const id = req.params.id;
 
-    await Tasks.updateOne({_id:id},req.body)
+    await Tasks.updateOne({ _id: id }, req.body)
 
-    res.json({code:200})
+    res.json({ code: 200 })
 
 }
 
-module.exports.FindTaskByUser =  async (req, res)=>{
+module.exports.FindTaskByUser = async (req, res) => {
     const Token = req.user.Token;
 
-    const id = await User.findOne({Token:Token}).select("_id")
-    const stringId = id._id.toString(); 
+    const id = await User.findOne({ Token: Token }).select("_id")
+    const stringId = id._id.toString();
     const find = {
-        Deleted:false,
-        ListUser:{ $in : [stringId]}
+        Deleted: false,
+        _id:id
     }
 
-     const ListTaskByUser = await Tasks.find(find)
+    const ListTaskByUser = await Tasks.find(find)
 
-    res.json({code:200,ListTask:ListTaskByUser})
+    res.json({ code: 200, ListTask: ListTaskByUser })
+}
+
+module.exports.FindTaskByUserDeleted = async (req, res) => {
+    const Token = req.user.Token;
+
+    const id = await User.findOne({ Token: Token }).select("_id")
+    const stringId = id._id.toString();
+    const find = {
+        Deleted: true,
+        _id:id
+    }
+
+    const ListTaskByUser = await Tasks.find(find)
+
+    res.json({ code: 200, ListTask: ListTaskByUser })
+}
+
+module.exports.GetMemberTheSameTask = async (req, res) => {
+        
+}
+
+module.exports.GetMemberNotInTask = async (req, res) => {
+ 
+  
+}
+
+module.exports.AddMember = async (req, res) => {
+
+}
+
+module.exports.MinusMember = async (req, res) => {
+
 }

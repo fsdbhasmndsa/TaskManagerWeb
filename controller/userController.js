@@ -4,7 +4,7 @@ const GenerateToken = require("../helper/GenerateToken")
 const GenerateOTP = require("../helper/GenerateOTP")
 const SendMail= require("../helper/MailHelper")
 const Otp = require("../models/otp.model")
-
+const contentHTML =  require("../helper/contentEmail")
 module.exports.Register = async (req, res) => {
 
     const email = req.body.Email;
@@ -12,7 +12,7 @@ module.exports.Register = async (req, res) => {
     const userExist = await User.findOne({ Email: email })
 
     if (userExist != null) {
-        res.json({ code: 400, message: "Email has already exist" })
+        res.json({ code: 400, message: "Email đã tồn tại" })
         return;
     }
 
@@ -26,9 +26,9 @@ module.exports.Register = async (req, res) => {
     })
 
     await user.save();
-    SendMail(email,email,`<h1  >You have just registered This account</h1><p style="color:blue;"> ${email} </p>`)
+    SendMail(email,email,contentHTML)
 
-    res.json({ code: 200, token: Token })
+    res.json({ code: 200, token: Token,message:"Đăng kí thành công" })
 }
 
 module.exports.FindAll = async (req, res) => {
@@ -49,7 +49,7 @@ module.exports.GetDetailUser = async (req, res) => {
 module.exports.Login = async (req, res) =>{
 
     const {Email,Password} =  req.body;
-
+ 
     const UserLogin = await User.findOne({Email:Email,Password:Password})
     if(UserLogin == null)
     {
@@ -65,7 +65,6 @@ module.exports.Login = async (req, res) =>{
 module.exports.ChangePassword = async (req, res) =>
 {
     const {Email,Password,NewPassWord} =  req.body;
-
     const UserLogin = await User.findOne({Email:Email,Password:Password})
     if(UserLogin == null)
     {
