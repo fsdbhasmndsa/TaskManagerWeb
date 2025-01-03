@@ -12,8 +12,13 @@ import Layout from './User/Layout/Layout';
 import TopStatistics from './User/views/TopStatistics';
 import TableTask from './User/views/TableTask'
 import Page404 from './User/views/Page404'
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import TableProject from './User/views/TableProject';
+import DashBoard from './User/views/DashBoard';
 function App() {
   return (
+    <DndProvider backend={HTML5Backend}>
     <BrowserRouter>
       <Routes>
         <Route path='' element={<HomeTemplate></HomeTemplate>}>
@@ -22,13 +27,15 @@ function App() {
           <Route path='login' element={<Login></Login>}></Route>
           <Route path='register' element={<Register></Register>}></Route>
           <Route path='registerNext' element={<RegisterNext></RegisterNext>}></Route>
+          <Route path='forgotpassword' element={<Register></Register>}></Route>
 
         </Route>
 
         <Route path='Task' element={<Layout></Layout>}>
-
-        
-        <Route path='' element={<TableTask></TableTask>}> </Route>
+        <Route path='dashboard' element={<DashBoard></DashBoard>}> </Route>
+        <Route path='project' element={<TableProject></TableProject>}> </Route>
+        <Route path='project/:id' element={<TableTask></TableTask>}> </Route>
+        <Route path='personal' element={<TableTask></TableTask>}> </Route>
        
 
         
@@ -44,6 +51,7 @@ function App() {
       </Routes>
       <ToastContainer autoClose={2500} pauseOnHover={false} />
     </BrowserRouter>
+    </DndProvider>
 
   );
 }

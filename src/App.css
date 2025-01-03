@@ -89,6 +89,7 @@ footer {
   margin-top: 10px; /* Khoảng cách giữa các mục */
 }
 
+
 /* Documentation Section */
 .sidebar h6 {
   color: #8898aa; /* Màu chữ xám nhạt cho "Documentation" */
@@ -205,3 +206,189 @@ body {
 
 
 
+/* Thêm kiểu cho các cột */
+.task-board {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  min-height: 300px;
+}
+
+.task-column {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #e0e5ec;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.task-column h4 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.task-column:hover {
+  background-color: #e9eff7;
+}
+
+/* Kiểu cho phần tử task */
+.task-item {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: center;
+  cursor: grab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: #1171ef;
+}
+
+.task-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.task-item:active {
+  cursor: grabbing;
+  transform: translateY(2px);
+}
+
+/* Kiểu cho hiệu ứng drag */
+.task-item[draggable="true"] {
+  cursor: grab;
+}
+
+.task-item[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+/* Tạo độ bóng cho các cột khi kéo thả */
+.task-column.droppable {
+  border: 2px dashed #3498db;
+  background-color: #f0f8ff;
+}
+
+.task-column.droppable h3 {
+  color: #3498db;
+}
+
+
+/* Khởi tạo */
+.bg-init {
+ background: linear-gradient(135deg, #00c6ff, #0072ff); /* Gradient cho nền chữ */
+  -webkit-background-clip: text; /* Clip nền gradient chỉ vào chữ */
+  -webkit-text-fill-color: transparent; /* Làm chữ trong suốt */
+  text-fill-color: transparent; /* Làm chữ trong suốt (cho các trình duyệt khác) */
+}
+
+/* Đang làm */
+.bg-in-progress {
+  background: linear-gradient(135deg, #ff9900, #ff5e00);
+  -webkit-background-clip: text; /* Clip nền gradient chỉ vào chữ */
+  -webkit-text-fill-color: transparent; /* Làm chữ trong suốt */
+  text-fill-color: transparent; /* Làm chữ trong suốt (cho các trình duyệt khác) */
+}
+
+/* Hoàn thành */
+.bg-completed {
+  background: linear-gradient(135deg, #38ef7d, #11998e);
+  -webkit-background-clip: text; /* Clip nền gradient chỉ vào chữ */
+  -webkit-text-fill-color: transparent; /* Làm chữ trong suốt */
+  text-fill-color: transparent; /* Làm chữ trong suốt (cho các trình duyệt khác) */
+}
+
+/* Không hoàn thành */
+.bg-not-completed {
+  background: linear-gradient(135deg, #ff6a6a, #d63031);
+  -webkit-background-clip: text; /* Clip nền gradient chỉ vào chữ */
+  -webkit-text-fill-color: transparent; /* Làm chữ trong suốt */
+  text-fill-color: transparent; /* Làm chữ trong suốt (cho các trình duyệt khác) */
+}
+
+/* From Uiverse.io by Alaner-xs */ 
+.card1 {
+  width: 254px;
+  height: 190px;
+  background-image: linear-gradient(144deg, #8608b4, #492fed 60%, #bd6fda);
+  border: none;
+  border-radius: 10px;
+  padding-top: 10px;
+  position: relative;
+  margin: auto;
+  font-family: inherit;
+}
+
+.card1 span {
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  display: block;
+  padding-top: 10px;
+  font-size: 1.3em;
+}
+
+.card1 .job {
+  font-weight: 400;
+  color: white;
+  display: block;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 1em;
+}
+
+.card1 .img {
+  width: 70px;
+  height: 70px;
+  background: #e8e8e8;
+  border-radius: 100%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+/* Thêm biểu tượng Edit và Delete */
+.card1 .icons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: none; /* Ẩn mặc định */
+  gap: 10px;
+}
+
+.card1:hover .icons {
+  display: flex; /* Hiển thị khi hover */
+}
+
+.card1 .icons i {
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.card1 .icons i:hover {
+  color: #ff5e5e;
+}
+
+
+.card1 button {
+  padding: 8px 25px;
+  display: block;
+  margin: auto;
+  border-radius: 8px;
+  border: none;
+  margin-top: 30px;
+  background: #e8e8e8;
+  color: #111111;
+  font-weight: 600;
+}
+
+.card1 button:hover {
+  background: #212121;
+  color: #ffffff;
+}

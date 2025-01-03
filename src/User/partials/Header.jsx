@@ -5,11 +5,7 @@ const Header = () => {
     <header className="header d-flex align-items-center justify-content-between px-4 py-3">
       {/* Thanh tìm kiếm */}
       <div className="search-bar">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search"
-        />
+      
       </div>
 
       {/* Thông tin người dùng */}

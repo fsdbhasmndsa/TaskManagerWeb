@@ -23,40 +23,41 @@ const Sidebar = () => {
         {/* Navigation Links */}
         <ul className="nav flex-column">
           <li className="nav-item">
-            <NavLink to={"/"} className="nav-link">
-              Dashboard
+          <NavLink to={"/Task/dashboard"} className="nav-link fw-bold">
+            <i className="bi bi-house-fill text-primary me-3 pt-1 fw-bold"></i>  Trang chủ
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/"} className="nav-link">
-              Icons
+          <NavLink to={"/task/project"} className="nav-link fw-bold">
+            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Dự án
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/"} className="nav-link">
-              Maps
+            <NavLink to={"/Task/project"} className="nav-link fw-bold">
+            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Công việc
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/"} className="nav-link">
-              User Profile
+          <NavLink to={"/"} className="nav-link fw-bold">
+            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Tài khoản
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/"} className="nav-link">
-              Tables
+          <NavLink to={"/"} className="nav-link fw-bold">
+            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Làm nhóm
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/"} className="nav-link">
-              Login
+          <NavLink to={"/"} className="nav-link fw-bold">
+            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Tham gia
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/"} className="nav-link">
-              Register
+          <NavLink to={"/"} className="nav-link fw-bold">
+            <i className="bi bi-box-arrow-left me-3 pt-1 fw-bold"></i>  Đăng xuất
             </NavLink>
           </li>
+          
         </ul>
       </div>
 
