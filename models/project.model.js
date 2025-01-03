@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const ProjectSchema = new mongoose.Schema({
     Name: String,
     CreateBy:String,
+    Content:String,
     // ListUser:Array,
     Deleted: {
         type: Boolean,

@@ -11,7 +11,7 @@ module.exports.requireAuth = async(req,res,next)=>{
    
     if(user == null)
     {
-        res.json({code:400,messsage:"Please give sever token"})
+        res.json({code:400,message:"Please give sever token"})
         return;
     }
     else{
@@ -21,6 +21,6 @@ module.exports.requireAuth = async(req,res,next)=>{
   
     }
     else{
-        res.json({code:400,messsage:"Please give sever token"})
+        res.json({code:400,message:"Please give sever token"})
     }
 }
