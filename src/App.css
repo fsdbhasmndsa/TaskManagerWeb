@@ -392,3 +392,35 @@ body {
   background: #212121;
   color: #ffffff;
 }
+
+.task-item {
+  position: relative;
+}
+
+.task-actions {
+  display: none; /* Mặc định ẩn */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  gap: 10px;
+}
+
+.task-item:hover .task-actions {
+  display: flex; /* Hiển thị khi hover */
+}
+
+.edit-icon, .delete-icon {
+  font-size: 18px; /* Kích thước icon */
+  cursor: pointer; /* Thay đổi con trỏ chuột */
+  color: #555; /* Màu sắc icon */
+}
+
+.edit-icon:hover {
+  color: #007bff; /* Màu khi hover Edit */
+}
+
+.delete-icon:hover {
+  color: #dc3545; /* Màu khi hover Delete */
+}
+
