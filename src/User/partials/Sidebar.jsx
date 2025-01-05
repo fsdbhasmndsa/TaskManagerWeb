@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <nav className="sidebar">
       <div>
@@ -53,9 +54,13 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink to={"/"} className="nav-link fw-bold">
-            <i className="bi bi-box-arrow-left me-3 pt-1 fw-bold"></i>  Đăng xuất
-            </NavLink>
+            <div className="nav-link fw-bold">
+              <i onClick={()=>{
+              localStorage.removeItem("Token")
+           
+              navigate("/")
+            }}  className="bi bi-box-arrow-left me-3 pt-1 fw-bold"></i>  Đăng xuất
+              </div>
           </li>
           
         </ul>

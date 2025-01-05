@@ -6,7 +6,7 @@ const Header = () => {
     const res = await axios({
       url: "http://localhost:8080/user/getnameuser", method: "GET", headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        Authorization: `Bearer ${localStorage.getItem("Token")}`,
       }
     })
    

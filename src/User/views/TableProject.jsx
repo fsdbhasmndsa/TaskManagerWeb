@@ -15,7 +15,7 @@ const TableProject = () => {
     const res = await axios({
       url: "http://localhost:8080/project", method: "GET", headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+        Authorization: `Bearer ${localStorage.getItem("Token")}`,
       }
     })
 
@@ -46,7 +46,7 @@ const TableProject = () => {
         const res = await axios({
           url: "http://localhost:8080/project/Update", method: "PUT", data: values, headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+            Authorization: `Bearer ${localStorage.getItem("Token")}`,
           }
         })
 
@@ -67,7 +67,7 @@ const TableProject = () => {
         const res = await axios({
           url: "http://localhost:8080/project/Create", method: "POST", data: values, headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+            Authorization: `Bearer ${localStorage.getItem("Token")}`,
           }
         })
 
@@ -197,7 +197,7 @@ const TableProject = () => {
                             const res = await axios({
                               url: "http://localhost:8080/project/Delete", method: "PUT", data: values, headers: {
                                 'Content-Type': 'application/json',
-                                Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+                                Authorization: `Bearer ${localStorage.getItem("Token")}`,
                               }
                             })
 

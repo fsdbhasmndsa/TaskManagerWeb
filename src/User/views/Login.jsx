@@ -30,6 +30,8 @@ const Login = () => {
      {
         toast.success("Đăng nhập thành công");
         sessionStorage.setItem("Token",res.data.Token)
+        localStorage.setItem("Token",res.data.Token)
+       
         Naviagte("/Task/dashboard")
 
      }
