@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const TaskSchema = new mongoose.Schema({
     Title: String,
-    Status: String,
+    Status: {
+        type: String,
+        default: "init"
+    },
     Content: String,
     TimeStart: Date,
     TimeFinish: Date,

@@ -6,6 +6,7 @@ router.get("/",ProjectController.GetProjectByID)
 router.post("/Create",ProjectController.CreateProject)
 router.put("/Update",ProjectController.UpdateProject)
 router.put("/Delete",ProjectController.DeletedProject)
+router.get("/GetnameProject/:id",ProjectController.GetNameProject)
 
 
 module.exports =router

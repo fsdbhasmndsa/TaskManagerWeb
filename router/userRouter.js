@@ -9,5 +9,6 @@ router.get("/Detail",requireAuth.requireAuth,usercontroller.GetDetailUser)
 router.post("/login",usercontroller.Login)
 router.post("/changepassword",usercontroller.ChangePassword)
 router.post("/forgotpassword",usercontroller.ForgotPassword)
+router.get("/getnameuser",requireAuth.requireAuth,usercontroller.GETNAMEUSER)
 
 module.exports = router

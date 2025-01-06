@@ -67,3 +67,19 @@ module.exports.DeletedProject = async (req,res) =>
 
    res.json({code:200,message:"Delete Successful"})
 }
+
+
+module.exports.GetNameProject = async (req,res) =>
+    {
+
+       try {
+        const ID =  req.params.id
+      
+        const name = await Project.findOne({_id:ID})
+
+
+        res.json({code:200,Name:name.Name,message:"GET name Successful"})
+       } catch (error) {
+        res.json({code:400,message:"GET name failed"})
+       }
+    }

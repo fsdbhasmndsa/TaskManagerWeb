@@ -5,6 +5,7 @@ const GenerateOTP = require("../helper/GenerateOTP")
 const SendMail= require("../helper/MailHelper")
 const Otp = require("../models/otp.model")
 const contentHTML =  require("../helper/contentEmail")
+const Project  =  require("../models/project.model")
 module.exports.Register = async (req, res) => {
 
     const email = req.body.Email;
@@ -42,8 +43,8 @@ module.exports.GetDetailUser = async (req, res) => {
     const id = req.user.id;
 
     const userDetail = await User.findOne({ _id: id }).select("-Password");
-
-    res.json({ code: 200, UserDetail: userDetail })
+    const projectTotal = await Project.countDocuments({CreateBy:id,Deleted:false})
+    res.json({ code: 200, UserDetail: userDetail,ProjectTotal:projectTotal})
 }
 
 module.exports.Login = async (req, res) =>{
@@ -117,4 +118,11 @@ module.exports.CheckOTP = async (req, res) =>{
 
 module.exports.ResetPassword = async (req, res) =>{
 
+}
+
+module.exports.GETNAMEUSER = async (req, res) =>{
+    const token = req.user.Token
+ const name = await User.findOne({Token:token}).select("Fullname")
+console.log("first",name)
+ res.json({code:200,Name:name.Fullname,message:"Lấy Fullname thành công"})
 }

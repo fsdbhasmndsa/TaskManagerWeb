@@ -23,4 +23,6 @@ router.put("/Update/:id",ControllerTask.UpdateTask)
 // findbyIDuser
 router.get("/GETtaskByID/:IDProject",ControllerTask.FindTaskByUser)
 
+router.get("/AutoChangeStatus",ControllerTask.ChangeStatusAuto)
+
 module.exports = router;

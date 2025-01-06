@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     Password: String,
     Fullname: String,
     Token: String,
+    Title:String,
     Deleted: {
         type: Boolean,
         default: false
