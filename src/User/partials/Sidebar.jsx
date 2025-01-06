@@ -53,13 +53,13 @@ const Sidebar = () => {
             <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Tham gia
             </NavLink>
           </li>
-          <li className="nav-item">
-            <div className="nav-link fw-bold">
-              <i onClick={()=>{
+          <li  className="nav-item">
+            <div  onClick={()=>{
               localStorage.removeItem("Token")
            
               navigate("/")
-            }}  className="bi bi-box-arrow-left me-3 pt-1 fw-bold"></i>  Đăng xuất
+            }} className="nav-link fw-bold">
+              <i   className="bi bi-box-arrow-left me-3 pt-1 fw-bold"></i>  Đăng xuất
               </div>
           </li>
           
