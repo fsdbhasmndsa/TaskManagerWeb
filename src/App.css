@@ -424,3 +424,28 @@ body {
   color: #dc3545; /* Màu khi hover Delete */
 }
 
+
+.bg-underContruction{
+ 
+  background-image: url(https://i.pinimg.com/originals/4b/c2/d7/4bc2d788f3a0cce14414936f4bc1ba7d.gif);
+     height: 300px;
+     width: 300px;
+     background-position: center;
+  }
+
+  .text-Gradian {
+    background: linear-gradient(87deg, #11cdef, #1171ef); /* Áp dụng gradient */
+    -webkit-background-clip: text; /* Clip gradient vào chữ */
+    -webkit-text-fill-color: transparent; /* Làm nền gradient hiển thị */
+    font-weight: bold;
+  }
+  
+  .nav-link.active {
+    background: linear-gradient(87deg, #11cdef, #1171ef); /* Áp dụng gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    border-bottom: 2px solid #1171ef; /* Đường nhấn dưới chữ khi active */
+  }
+  
+

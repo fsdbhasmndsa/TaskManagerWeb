@@ -16,6 +16,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import TableProject from './User/views/TableProject';
 import DashBoard from './User/views/DashBoard';
+import PersonalPage from './User/views/PersonalPage';
+import UnderDevelopmentPage from './User/views/UnderDevelopmentPage';
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
@@ -35,7 +37,9 @@ function App() {
         <Route path='dashboard' element={<DashBoard></DashBoard>}> </Route>
         <Route path='project' element={<TableProject></TableProject>}> </Route>
         <Route path='project/:id' element={<TableTask></TableTask>}> </Route>
-        <Route path='personal' element={<TableTask></TableTask>}> </Route>
+        <Route path='personal' element={<PersonalPage></PersonalPage>}> </Route>
+        <Route path='join' element={<UnderDevelopmentPage></UnderDevelopmentPage>}> </Route>
+        <Route path='group' element={<UnderDevelopmentPage></UnderDevelopmentPage>}> </Route>
        
 
         

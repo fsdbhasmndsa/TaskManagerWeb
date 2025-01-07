@@ -24,45 +24,61 @@ const Sidebar = () => {
         {/* Navigation Links */}
         <ul className="nav flex-column">
           <li className="nav-item">
-          <NavLink to={"/Task/dashboard"} className="nav-link fw-bold">
-            <i className="bi bi-house-fill text-primary me-3 pt-1 fw-bold"></i>  Trang chủ
+            <NavLink
+              to="/Task/dashboard"
+              className={({ isActive }) =>
+                isActive ? "nav-link fw-bold text-Gradian" : "nav-link fw-bold"
+              }
+            >
+              <i className="bi bi-house-fill text-primary me-3 pt-1 fw-bold"></i> Trang chủ
+            </NavLink>
+
+          </li>
+          <li className="nav-item">
+            <NavLink to={"/task/project"}   className={({ isActive }) =>
+                isActive ? "nav-link fw-bold text-Gradian" : "nav-link fw-bold"
+              }>
+              <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Dự án
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink to={"/task/project"} className="nav-link fw-bold">
-            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Dự án
+            <NavLink to={"/Task/project"}   className={({ isActive }) =>
+                isActive ? "nav-link fw-bold text-Gradian" : "nav-link fw-bold"
+              }>
+              <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Công việc
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/Task/project"} className="nav-link fw-bold">
-            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Công việc
+            <NavLink to={"/Task/personal"}   className={({ isActive }) =>
+                isActive ? "nav-link fw-bold text-Gradian" : "nav-link fw-bold"
+              }>
+              <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Tài khoản
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink to={"/"} className="nav-link fw-bold">
-            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Tài khoản
+            <NavLink to={"/Task/group"}   className={({ isActive }) =>
+                isActive ? "nav-link fw-bold text-Gradian" : "nav-link fw-bold"
+              }>
+              <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Làm nhóm
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink to={"/"} className="nav-link fw-bold">
-            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Làm nhóm
+            <NavLink to={"/Task/join"}   className={({ isActive }) =>
+                isActive ? "nav-link fw-bold text-Gradian" : "nav-link fw-bold"
+              }>
+              <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Tham gia
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink to={"/"} className="nav-link fw-bold">
-            <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Tham gia
-            </NavLink>
-          </li>
-          <li  className="nav-item">
-            <div  onClick={()=>{
+            <div onClick={() => {
               localStorage.removeItem("Token")
-           
+
               navigate("/")
             }} className="nav-link fw-bold">
-              <i   className="bi bi-box-arrow-left me-3 pt-1 fw-bold"></i>  Đăng xuất
-              </div>
+              <i className="bi bi-box-arrow-left me-3 pt-1 fw-bold"></i>  Đăng xuất
+            </div>
           </li>
-          
+
         </ul>
       </div>
 

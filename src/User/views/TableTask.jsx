@@ -9,10 +9,30 @@ const ItemType = 'TASK';
 
 const TableTask = () => {
   const [NameProject, SetNameProject] = useState('');
+  const [TaskDetail, SetTaskDetail] = useState({
+    Title:"",
+    Status:"",
+    Content:"",
+    TimeStart:"",
+    TimeFinish:"",
+    CreateBy:"",
+    BelongProject:"",
+  });
   const [TaskByUser, SetTaskByUser] = useState([]);
   const [StatusUpdate, SetStatusUpdate] = useState(false);
   const param = useParams();
   const projectId = param.id;
+
+  const jobData = {
+    Title: "Software Developer",
+    Status: "In Progress",
+    Content: "Develop and maintain web applications, collaborate with cross-functional teams.",
+    TimeStart: new Date("2025-01-01T09:00:00Z"),
+    TimeFinish: new Date("2025-12-31T17:00:00Z"),
+    CreateBy: "John Doe",
+    BelongProject: "WebApp Project"
+  };
+
 
   const Formik = useFormik({
     initialValues: {
@@ -32,15 +52,13 @@ const TableTask = () => {
     }),
     onSubmit: async (values) => {
       console.log(values)
-      const close = document.getElementsByClassName("btn-close")[0];
+      const close = document.getElementsByClassName("btn-close")[1];
       if (StatusUpdate) {
       const res = await axios({url:`http://localhost:8080/task/Update/${values.ID}`,method:"PUT",data:values, headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem("Token")}`,
 
-      }
-        
-      })
+      }})
       if(res.data.code = 200)
       {
         toast.success(res.data.message)
@@ -88,6 +106,18 @@ const TableTask = () => {
     } catch (err) {
       console.error('Error fetching tasks:', err);
     }
+  };
+
+  const AutoUpdateStatusNotFinish = async () => {
+    
+      const res = await axios.get(`http://localhost:8080/task/AutoChangeStatus`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
+        },
+      });
+     
+ 
   };
 
   // Lấy tên project
@@ -143,6 +173,7 @@ const TableTask = () => {
   }
 
   useEffect(() => {
+    AutoUpdateStatusNotFinish()
     GetTaskByUser();
     GetNameProject();
   }, []);
@@ -159,8 +190,23 @@ const TableTask = () => {
 
     return (
       <div
+      onClick={()=>{
+        SetTaskDetail({
+          Title: task.Title,
+          Status:task.Status,
+          Content:task.Content,
+          TimeStart:task.TimeStart,
+          TimeFinish:task.TimeFinish,
+        
+          BelongProject:NameProject,
+        })
+        const btnup = document.getElementById("BTNGetDetail")
+        btnup.click()
+        console.log("click div")
+      }}
         ref={drag}
         className="task-item"
+      
         style={{
           opacity: isDragging ? 0.5 : 1,
           padding: '10px',
@@ -177,13 +223,18 @@ const TableTask = () => {
       >
         <h6 style={{ margin: 0, fontSize: '14px' }}>{task.Title}</h6>
         <div className="task-actions">
-          <i onClick={()=>{
+          <i onClick={(event)=>{
+            event.stopPropagation();
             const btnup = document.getElementById("BTNUP")
+            const timeStartDate = new Date(task.TimeStart);
+            const formattedDate = timeStartDate.toISOString().split('T')[0]; 
+            const TimeFinish = new Date(task.TimeFinish);
+            const formattedDateTimeFinish = TimeFinish.toISOString().split('T')[0]; 
             Formik.setFieldValue("ID",task._id)
             Formik.setFieldValue("Title",task.Title)
             Formik.setFieldValue("Content",task.Content)
-            Formik.setFieldValue("TimeStart",task.TimeStart)
-            Formik.setFieldValue("TimeFinish",task.TimeFinish)
+            Formik.setFieldValue("TimeStart",formattedDate)
+            Formik.setFieldValue("TimeFinish",formattedDateTimeFinish)
             SetStatusUpdate(true)
             btnup.click()
 
@@ -235,6 +286,11 @@ const TableTask = () => {
         <div className="ms-auto d-flex align-items-center">
         <button className="btn btn-outline-light me-2" style={{display:"none"}} onClick={()=>{
             
+          }} id='BTNGetDetail' data-bs-toggle="modal" data-bs-target="#customModal">
+            <i className="bi bi-plus-square-fill" /> <span>Add</span>
+          </button>
+        <button className="btn btn-outline-light me-2" style={{display:"none"}} onClick={()=>{
+            
           }} id='BTNUP' data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
             <i className="bi bi-plus-square-fill" /> <span>Add</span>
           </button>
@@ -259,6 +315,45 @@ const TableTask = () => {
           </div>
         </div>
       </div>
+
+    {/* modal chi tiết */}
+   <div className="modal fade" id="customModal" tabIndex={-1} aria-labelledby="customModalLabel" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-centered">
+    <div className="modal-content">
+      <div className="modal-header" style={{borderBottom:"none"}}>
+     
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+      </div>
+     
+      <div className="modal-body" style={{ backgroundColor: '#f8f9fa', padding: '10px', borderRadius: '15px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '800px', margin: '0 auto' }}>
+  {/* Job Header */}
+  <div style={{ backgroundColor: '#007bff', color: 'white', borderRadius: '15px 15px 0 0', padding: '20px' }}>
+    <h3 style={{ fontSize: '24px', fontWeight: 'bold' }}>{TaskDetail.Title}</h3>
+    <p style={{ fontSize: '16px', fontStyle: 'italic', marginTop: '5px' }}>{TaskDetail.Status}</p>
+  </div>
+
+  {/* Job Description */}
+  <div style={{ padding: '20px', color: "blue" }}>
+    <h5 style={{ fontSize: '20px', fontWeight: '500', marginBottom: '10px' }}>Job Description</h5>
+    <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#555' }}>{TaskDetail.Content}</p>
+
+    <h5 style={{ fontSize: '20px', fontWeight: '500', marginTop: '20px' }}>Timeframe</h5>
+    <p style={{ fontSize: '16px', color: '#444' }}><strong>Start:</strong> {TaskDetail.TimeStart.toLocaleString()}</p>
+    <p style={{ fontSize: '16px', color: '#444' }}><strong>Finish:</strong> {TaskDetail.TimeFinish.toLocaleString()}</p>
+
+  
+
+    <h5 style={{ fontSize: '20px', fontWeight: '500', marginTop: '20px' }}>Project</h5>
+    <p style={{ fontSize: '16px', color: '#444' }}>{TaskDetail.BelongProject}</p>
+    
+    </div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+{/* end modal chi tiết */}
 
       <div className="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabIndex={-1}>
         <div className="modal-dialog modal-dialog-centered">
