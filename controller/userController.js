@@ -5,13 +5,14 @@ const GenerateOTP = require("../helper/GenerateOTP")
 const SendMail= require("../helper/MailHelper")
 const Otp = require("../models/otp.model")
 const contentHTML =  require("../helper/contentEmail")
+const htmlContentOTP =  require("../helper/contentEmailOTP")
 const Project  =  require("../models/project.model")
 module.exports.Register = async (req, res) => {
 
     const email = req.body.Email;
 
     const userExist = await User.findOne({ Email: email })
-
+    console.log("userExist",userExist)
     if (userExist != null) {
         res.json({ code: 400, message: "Email đã tồn tại" })
         return;
@@ -65,19 +66,20 @@ module.exports.Login = async (req, res) =>{
 
 module.exports.ChangePassword = async (req, res) =>
 {
-    const {Email,Password,NewPassWord} =  req.body;
-    const UserLogin = await User.findOne({Email:Email,Password:Password})
+    const {Email,CurrentPassword,NewPassword} =  req.body;
+    const UserLogin = await User.findOne({Email:Email,Password:CurrentPassword})
     if(UserLogin == null)
     {
         res.json({code:400,message:"Email or Password Wrong"})
         return;
     }
     else{
-        console.log("first",NewPassWord)
+        console.log("first",NewPassword)
         console.log("first",UserLogin.Password)
-        if(NewPassWord != UserLogin.Password)
+        if(NewPassword != UserLogin.Password)
         {
             console.log("first",UserLogin)
+            await User.updateOne({_id:UserLogin._id},{Password:NewPassword})
             res.json({code:200,message:"Change Password  Successful"})
         }
         else{
@@ -96,7 +98,7 @@ module.exports.ForgotPassword = async (req, res) =>
 
         if(userNeedtoGet == null)
         {
-            res.json({code:400,message:"Email does not exist"})
+            res.json({code:400,message:"Email không tồn tại"})
             return;
         }
         const OTP =GenerateOTP(6);
@@ -105,18 +107,25 @@ module.exports.ForgotPassword = async (req, res) =>
             OTP:OTP
         })
       await  otpSave.save()
-      SendMail(Email,OTP,`<h1  >Welcome Your OTP is </h1><p style="color:blue;"> ${OTP} </p>`)
+      SendMail(Email,OTP,htmlContentOTP(OTP))
         
-        res.json({code:200,message:"Send OTP Successful",OTP:OTP})
+        res.json({code:200,message:"Gửi OTP thành công"})
 }
 
-module.exports.CheckOTP = async (req, res) =>{
-
-
-
-}
 
 module.exports.ResetPassword = async (req, res) =>{
+    const {Email,NewPassword} =  req.body
+    console.log("Email",Email)
+    console.log("NewPassword",NewPassword)
+    //
+    try {
+        const user = await User.findOne({Email:Email})
+   
+     await User.updateOne({Email:Email},{Password:NewPassword})
+    res.json({code:200,message:"Quên mật khẩu thành công"})
+    } catch (error) {
+    res.json({code:400,message:"Quên mật khẩu không thành công"})
+    }
 
 }
 
@@ -126,3 +135,5 @@ module.exports.GETNAMEUSER = async (req, res) =>{
 console.log("first",name)
  res.json({code:200,Name:name.Fullname,message:"Lấy Fullname thành công"})
 }
+
+
