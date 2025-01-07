@@ -239,7 +239,8 @@ const TableTask = () => {
             btnup.click()
 
           }} className="bi bi-pencil-square edit-icon"></i>
-          <i  onClick={()=>{
+          <i  onClick={(event)=>{
+              event.stopPropagation();
              API_Delete_Task(task._id)
           }}  className="bi bi-trash delete-icon"></i>
         </div>

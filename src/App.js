@@ -19,6 +19,8 @@ import DashBoard from './User/views/DashBoard';
 import PersonalPage from './User/views/PersonalPage';
 import UnderDevelopmentPage from './User/views/UnderDevelopmentPage';
 import ChangePassword from './User/views/ChangePassword';
+
+import ForgotPassword from './User/views/ForgotPassword';
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
@@ -30,8 +32,9 @@ function App() {
           <Route path='login' element={<Login></Login>}></Route>
           <Route path='register' element={<Register></Register>}></Route>
           <Route path='registerNext' element={<RegisterNext></RegisterNext>}></Route>
-          <Route path='forgotpassword' element={<Register></Register>}></Route>
+          <Route path='forgotpassword' element={<ForgotPassword></ForgotPassword>}></Route>
           <Route path='changepassword' element={<ChangePassword></ChangePassword>}></Route>
+      
 
         </Route>
 
