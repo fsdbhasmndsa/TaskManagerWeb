@@ -18,6 +18,7 @@ import TableProject from './User/views/TableProject';
 import DashBoard from './User/views/DashBoard';
 import PersonalPage from './User/views/PersonalPage';
 import UnderDevelopmentPage from './User/views/UnderDevelopmentPage';
+import ChangePassword from './User/views/ChangePassword';
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
@@ -30,6 +31,7 @@ function App() {
           <Route path='register' element={<Register></Register>}></Route>
           <Route path='registerNext' element={<RegisterNext></RegisterNext>}></Route>
           <Route path='forgotpassword' element={<Register></Register>}></Route>
+          <Route path='changepassword' element={<ChangePassword></ChangePassword>}></Route>
 
         </Route>
 
