@@ -11,5 +11,6 @@ router.post("/changepassword",usercontroller.ChangePassword)
 router.post("/forgotpassword",usercontroller.ForgotPassword)
 router.get("/getnameuser",requireAuth.requireAuth,usercontroller.GETNAMEUSER)
 router.post("/ResetPassword",usercontroller.ResetPassword)
+router.post("/LoginWithGoogle",usercontroller.LoginWithGoogle)
 
 module.exports = router

@@ -136,4 +136,29 @@ console.log("first",name)
  res.json({code:200,Name:name.Fullname,message:"Lấy Fullname thành công"})
 }
 
+module.exports.LoginWithGoogle = async (req, res) =>{
+    const Token = GenerateToken(8);
+    const {Email,Fullname} =  req.body
+    
+    const ExistEmail =  await User.findOne({Email:Email})
+
+    if(ExistEmail !=null)
+    {
+        res.json({code:200,message:"Đăng nhập thành công",Token:ExistEmail.Token})
+    }
+    else
+    {
+        const user =  new User({
+            Email:Email,
+            Fullname:Fullname,
+            Token:Token
+        })
+
+        await user.save()
+        
+        res.json({code:200,message:"Đăng nhập thành công",Token:Token})
+    }
+
+   
+}
 

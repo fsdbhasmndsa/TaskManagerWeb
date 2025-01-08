@@ -7,15 +7,15 @@ const SendMail = (PersonReceive ,OTP,content) =>{
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'loikogay2003@gmail.com',
-          pass: 'qdloebhyknahpmrg'
+          user: process.env.Mail,
+          pass: process.env.PASSWORD
         }
       });
 
     var mailOptions = {
         from: 'loikogay2003@gmail.com',
         to: PersonReceive,
-        subject: 'Sending Email using Node.js',
+        subject: 'Sending Email From Tash Manager',
         html: content
       }
 
