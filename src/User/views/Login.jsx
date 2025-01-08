@@ -4,6 +4,7 @@ import React from 'react'
 import { data, NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from "yup"
+import GoogleLoginButton from './GoogleLoginButton'
 
 const Login = () => {
   const Naviagte = useNavigate();
@@ -109,13 +110,7 @@ const Login = () => {
         </div>
 
         {/* Nút tiếp tục với Google */}
-        <button
-          className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center mb-2"
-          style={{ height: "50px" }}
-        >
-          <i className="fab fa-google me-2"></i>
-          Tiếp tục với Google
-        </button>
+        <GoogleLoginButton></GoogleLoginButton>
 
         {/* Nút tiếp tục với Microsoft */}
         {/* <button

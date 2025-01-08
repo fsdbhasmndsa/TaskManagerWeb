@@ -20,46 +20,49 @@ import PersonalPage from './User/views/PersonalPage';
 import UnderDevelopmentPage from './User/views/UnderDevelopmentPage';
 import ChangePassword from './User/views/ChangePassword';
 
+
+
 import ForgotPassword from './User/views/ForgotPassword';
+import PrivateRoute from './User/views/PrivateRoute';
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
-    <BrowserRouter>
-      <Routes>
-        <Route path='' element={<HomeTemplate></HomeTemplate>}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='' element={<HomeTemplate></HomeTemplate>}>
 
-          <Route index element={<Home></Home>}></Route>
-          <Route path='login' element={<Login></Login>}></Route>
-          <Route path='register' element={<Register></Register>}></Route>
-          <Route path='registerNext' element={<RegisterNext></RegisterNext>}></Route>
-          <Route path='forgotpassword' element={<ForgotPassword></ForgotPassword>}></Route>
-          <Route path='changepassword' element={<ChangePassword></ChangePassword>}></Route>
-      
+            <Route index element={<Home></Home>}></Route>
+            <Route path='login' element={<Login></Login>}></Route>
+            <Route path='register' element={<Register></Register>}></Route>
+            <Route path='registerNext' element={<RegisterNext></RegisterNext>}></Route>
+            <Route path='forgotpassword' element={<ForgotPassword></ForgotPassword>}></Route>
+            <Route path='changepassword' element={<ChangePassword></ChangePassword>}></Route>
 
-        </Route>
 
-        <Route path='Task' element={<Layout></Layout>}>
-        <Route path='dashboard' element={<DashBoard></DashBoard>}> </Route>
-        <Route path='project' element={<TableProject></TableProject>}> </Route>
-        <Route path='project/:id' element={<TableTask></TableTask>}> </Route>
-        <Route path='personal' element={<PersonalPage></PersonalPage>}> </Route>
-        <Route path='join' element={<UnderDevelopmentPage></UnderDevelopmentPage>}> </Route>
-        <Route path='group' element={<UnderDevelopmentPage></UnderDevelopmentPage>}> </Route>
-       
+          </Route>
 
-        
-         
+          <Route path='Task' element={<Layout></Layout>}>
+          <Route path="dashboard" element={<PrivateRoute element={<DashBoard />} /> }/>
+          <Route path='project' element={<PrivateRoute element={<TableProject></TableProject>} /> }> </Route>
+          <Route path='project/:id' element={<PrivateRoute element={<TableTask></TableTask>} />}> </Route>
+          <Route path='personal' element={<PrivateRoute element={<PersonalPage></PersonalPage>} />}> </Route>
+          <Route path='join' element={<PrivateRoute element={<UnderDevelopmentPage></UnderDevelopmentPage>} />}> </Route>
+          <Route path='group' element={<PrivateRoute element={<UnderDevelopmentPage></UnderDevelopmentPage>} />}> </Route>
 
 
 
 
 
-        </Route>
-        <Route path='*' element={<Page404></Page404>}> </Route>
 
-      </Routes>
-      <ToastContainer autoClose={2500} pauseOnHover={false} />
-    </BrowserRouter>
+
+
+
+          </Route>
+          <Route path='*' element={<Page404></Page404>}> </Route>
+
+        </Routes>
+        <ToastContainer autoClose={2500} pauseOnHover={false} />
+      </BrowserRouter>
     </DndProvider>
 
   );

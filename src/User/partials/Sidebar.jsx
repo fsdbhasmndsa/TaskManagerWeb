@@ -42,13 +42,6 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/Task/project"}   className={({ isActive }) =>
-                isActive ? "nav-link fw-bold text-Gradian" : "nav-link fw-bold"
-              }>
-              <i className="bi bi-list-task me-3 pt-1 fw-bold"></i>  Công việc
-            </NavLink>
-          </li>
-          <li className="nav-item">
             <NavLink to={"/Task/personal"}   className={({ isActive }) =>
                 isActive ? "nav-link fw-bold text-Gradian" : "nav-link fw-bold"
               }>

@@ -219,7 +219,23 @@ const TableProject = () => {
 
                 })
 
+                
                 }
+                {ListProject.length ==0 ? 
+                  <div className="row d-flex align-items-center justify-content-center" style={{ minHeight: '60vh', minWidth: 370 }}>
+                  <div className="col-md-12 d-flex align-items-center justify-content-center">
+                    <img
+                      className="img-fluid"
+                      style={{ borderRadius: 15 }}
+                      width={300}
+                      height={300}
+                      src="https://img.freepik.com/premium-vector/no-data-found-empty-file-folder-concept-design-vector-illustration_620585-1698.jpg?ga=GA1.1.1115368738.1680703315&semt=ais_hybrid"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                 : null }
+
               </div>
             </div>
           </div>
